@@ -9,6 +9,6 @@ namespace app\common\behavior;
 class Log
 {
     public function app_user(){
-        echo 'hello word!';die;
+        echo 'hello word!';die;   
     }
 }

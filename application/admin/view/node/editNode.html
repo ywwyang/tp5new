@@ -1,0 +1,120 @@
+{extend name="base/base" /}
+{block name="title"}编辑节点{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+         <a href='{:url("node/index")}'>节点管理</a>
+        <a><cite>编辑节点</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <form class="layui-form" action="">
+        <input type="hidden" name="id" value="{$node_details['id']}">
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">节点规定</label>
+            <div class="layui-input-block">
+                <select name="level" lay-filter="level" lay-verify="required ">
+                    <option value=""></option>
+                    <option value="1" {eq name="$node_details['level']" value="1" }selected{/eq}> 应用（模块）</option>
+                    <option value="2" {eq name="$node_details['level']" value="2" }selected{/eq}> 控制器 </option>
+                    <option value="3" {eq name="$node_details['level']" value="3" }selected{/eq}> 方法 </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">父节点</label>
+            <div class="layui-input-block">
+                <select id="pid" name="pid" lay-verify="required">
+                    <option value="{$node_details['pid']}">{$node_details['pid_name']}</option>
+                    <!-- <option value="0">北京</option>
+                     <option value="1">上海</option>
+                     <option value="2">广州</option>
+                     <option value="3">深圳</option>
+                     <option value="4">杭州</option>-->
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">节点名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" value="{$node_details['name']}"
+                       placeholder="节点名 如：admin" autocomplete="off" class="layui-input">
+            </div>
+            <!--<div class="layui-form-mid layui-word-aux">如：admin/index/index  中的admin</div>-->
+        </div>
+
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">节点标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" value="{$node_details['title']}"
+                       placeholder="节点标题 如：后台模板" autocomplete="off" class="layui-input">
+            </div>
+            <!--div class="layui-form-mid layui-word-aux">如：admin/index/index  后台模板</div>-->
+        </div>
+
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" required lay-verify="required" value="{$node_details['sort']}"
+                       placeholder="排序 （正序）" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-mid layui-word-aux">正序</div>-->
+
+        <div class="layui-form-item layui-form-text layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="请输入描述内容" class="layui-textarea">{$node_details['remark']}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="禁用" {eq name="$node_details['status']" value="0"
+                       }checked{/eq}>
+                <input type="radio" name="status" value="1" title="启用" {eq name="$node_details['status']" value="1"
+                       }checked{/eq}>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="save" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+    <script src="__JS__/node/editNode.js"></script>
+    <script>
+        var editNode = "{:url('node/editNode')}"
+                ,getNode = "{:url('node/getNode')}"
+                ,Index = "{:url('node/index')}";
+    </script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

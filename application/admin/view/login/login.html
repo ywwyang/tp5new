@@ -1,0 +1,49 @@
+{extend name="base/base" /}
+{block name="title"}登录后台页面{/block}
+{block name="css_head"}
+<link rel="stylesheet" href="__CSS__/login.css" media="all">
+{/block}
+{block name="content"}
+<!-- 粒子背景效果 -->
+<div id="particles-js"></div>
+<div class="layout-container">
+    <div class="layui-row">
+        <div class="layui-col-sm8 layui-col-md5 layui-col-lg4  layui-col-md-offset3 layui-col-lg-offset4 layui-col-sm-offset2" id="safewidth">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label task-font-color">帐号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="uname" required lay-verify="required" placeholder="请输入帐号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label task-font-color">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label task-font-color">验证码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="captcha" required lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                        <img src="{:captcha_src()}" alt="验证码" id="captcha" title="点击刷新验证码"  />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn login-but layui-input" lay-submit lay-filter="formDemo">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js_footer"}
+<script src="__JS__/particles.min.js"></script>
+<script src="__JS__/login/login.js"></script>
+<script>
+    var action    = "{:url('Login/doLogin')}";
+    var jumpIndex = "{:url('Index/index')}";
+</script>
+{/block}

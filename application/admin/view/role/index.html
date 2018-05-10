@@ -1,0 +1,103 @@
+{extend name="base/base" /}
+{block name="title"}角色列表{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a><cite>角色管理</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md10">
+        <div class="grid-demo grid-demo-bg1">
+            <!-- 搜索 -->
+        </div>
+    </div>
+    <div class="layui-col-md2">
+        <div class="grid-demo" style="text-align: right;">
+            <a href="{:url('Role/addRole')}" class="layui-btn layui-btn-small"><i class="layui-icon">&#xe608;</i>添加角色</a>
+        </div>
+    </div>
+</div>
+    <form class="layui-form">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <td width="50">
+                        <input type="checkbox" name="role[]" lay-skin="primary" class="not-show" lay-filter="allChoose">
+                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                            <i class="layui-icon"></i>
+                        </div>
+                    </td>
+                    <th>ID</th>
+                    <th>角色名称</th>
+                    <th>父级名称</th>
+                    <th>状态</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr> 
+            </thead>
+            <tbody>
+                {foreach $roleData as $vo}
+                    <tr>
+                        <td width="50">
+                            <input type="checkbox" name="role['{$vo.id}']" lay-skin="primary" class="not-show" value="{$vo.id}" lay-filter="itemChoose">
+                            <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                                <i class="layui-icon"></i>
+                            </div>
+                        </td>
+                        <td>{$vo.id}</td>
+                        <td style="text-align: left;">{$vo.name}</td>
+                        <td>
+                        	{empty name="$vo.pid_name"}
+								无
+							{else /}
+								{$vo.pid_name}
+							{/empty}
+                        </td>
+                        <td>
+                            {if condition="$vo.status eq 1"}
+                                <span>启用</span>
+                            {else /}
+                                <span>禁用</span>
+                            {/if}
+                        </td>
+                        <td>
+                        	{empty name="$vo.remark"}
+								无
+							{else /}
+								{$vo.remark}
+							{/empty}
+                        </td>
+                        <td>
+                        	
+                            <a href='{:url("Role/editRole")}?id={$vo.id}' class="layui-btn layui-btn-small">编辑</a>
+                            <a href='{:url("Access/index")}?id={$vo.id}' class="layui-btn layui-btn-small">添加权限</a>
+                            <button class="layui-btn layui-btn-warm layui-btn-small item-isable" value="{$vo.id}" data-status='{$vo.status}' lay-event="item-isable">
+                                {if condition="$vo.status eq 1"}
+                                <span >禁用</span><i></i>
+                                {else /}
+                                <span >启用</span><i></i>
+                                {/if}
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-small item-delete" value="{$vo.id}">删除</button>
+
+                        </td>
+                    </tr>
+                {/foreach}
+            </tbody>
+        </table>
+    </form>
+    <!-- 分页 -->
+    <div id="page" class="layui-box layui-laypage layui-laypage-default page-width">
+    	{$page}
+    </div>
+{/block}
+{block name="js_footer"}
+<script src="__JS__/role/index.js"></script>
+<script>
+    var setStatus = '{:url("Role/setStatus")}';
+    var del = '{:url("Role/delRole")}';
+</script>
+{/block}

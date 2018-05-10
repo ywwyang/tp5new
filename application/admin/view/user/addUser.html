@@ -1,0 +1,77 @@
+{extend name="base/base" /}
+{block name="title"}用户添加{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("user/index")}'>账号管理</a>
+        <a><cite>添加账号</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <form class="layui-form">
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4" style="margin-bottom: 0;">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="uname" required  lay-verify="required" placeholder="账号名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;">只能是5到24个字符组成的数字或英文</div>
+        </div>
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4" style="margin-bottom: 0;">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;">长度是5到32个字符</div>
+        </div>
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4" style="margin-bottom: 0;">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="real_name" required  lay-verify="required" placeholder="真实姓名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="margin-left: 110px;">必需填写为中文或英文、长度为2到8个字符</div>
+        </div>
+        <div class="layui-form-item" style="margin-bottom: 0;">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="启用" checked>
+                <input type="radio" name="status" value="0" title="禁用" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">启用：该账户可以登入 / 禁用： 该用户不能登入 </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="save" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+    <script src="__JS__/user/addUser.js"></script>
+    <script>
+        var addUser = "{:url('user/addUser')}"
+                , Index = "{:url('user/index')}";
+    </script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

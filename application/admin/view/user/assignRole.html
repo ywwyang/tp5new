@@ -1,0 +1,42 @@
+{extend name="base/base" /}
+{block name="title"}分配角色{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("user/index")}'>账号管理</a>
+        <a><cite>分配角色</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+<form class="layui-form layui-col-lg5 layui-col-xs11 layui-col-sm5 layui-col-md5">
+	<div class="layui-form-item">
+		<label class="layui-form-label">用户名称：</label>
+		<div class="layui-input-block">
+			<input type="hidden" name="userId" value="{$userInfo['id']}">
+			<div class="layui-form-mid">{$userInfo['real_name']}</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">角色：</label>
+		<div class="layui-input-block">
+			{foreach $roleInfo as $vo}
+				<input type="checkbox" name="roleId[{$vo['id']}]" lay-filter="checkbox" value="{$vo['id']}" title="{$vo['name']}" lay-skin="primary" {if in_array($vo['id'],$currRole)}checked{/if}/>
+			{/foreach}
+		</div>
+	</div>
+	<div class="layui-form-item ">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit lay-filter="formDemo">分配</button>
+			<!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+		</div>
+	</div>
+</form>
+{/block}
+{block name="js_footer"}
+<script src="__JS__/user/assignRole.js"></script>
+<script>
+	var addUserRole = '{:url("User/addUserRole")}'
+			, Index = '{:url("User/index")}';
+</script>
+{/block}

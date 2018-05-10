@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="base/head" /}
+    <title>{block name="title"}{/block}</title>
+
+    {block name="css_head"}{/block}
+    {block name="js_head"}{/block}
+</head>
+<body>
+    <div style="padding: 20px;" class="cms-padding">
+        {block name="breadcrumb"}{/block}
+        {block name="content"}{/block}
+        
+    </div>
+    <script src="__JS__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+    <script src="__LAYUI__/dialog.js"></script>
+    {block name="js_footer"}{/block}
+</body>
+</html>

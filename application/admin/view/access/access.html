@@ -1,0 +1,65 @@
+{extend name="base/base" /}
+{block name="title"}权限管理{/block}
+{block name="css_head"}
+    <link rel="stylesheet" href="__CSS__/demo.css">
+    <link rel="stylesheet" href="__CSS__/zTreeStyle.css">
+    <style type="text/css" media="screen">
+    	.layui-breadcrumb a { text-decoration:none; }
+    	.layui-breadcrumb a:hover {background-color:#fff;text-decoration:none;}
+    </style>
+{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("Role/index")}'>角色管理</a>
+        <a><cite>添加权限</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+	<form class="layui-form  layui-col-lg4 layui-col-xs11 layui-col-sm4 layui-col-md4">
+		{empty name="$role"}
+			<div style="color:red;padding: 50px;">操作有误，请返回重新操作</div>
+		{else /}
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th style="text-align: left;">角色名称：
+						<span>
+							<input type="hidden" name="role_id" lay-skin="primary" value="{$role['id']}">
+							{$role['name']}
+						</span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<div style="float: left;">节点列表：</div>
+						<div>
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		{/empty}
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">保存</button>
+				<!-- <button type="reset" class="layui-btn layui-btn-primary">重置</button> -->
+			</div>
+		</div>
+	</form>
+{/block}
+{block name="js_footer"}
+	<!-- zTree核心包 -->
+	<script type="text/javascript" src="__JS__/jquery.ztree.core.js"></script>
+	<!-- 复选框功能包 -->
+	<script type="text/javascript" src="__JS__/jquery.ztree.excheck.js"></script>
+	<script src="__JS__/access/access.js"></script>
+	<script>
+		var jumpAccess 	  = "{:url('Access/ajaxGetAccessInfo')}",
+		 	jumpAccessAdd = '{:url("Access/ajaxAdd")}';
+	</script>
+{/block}

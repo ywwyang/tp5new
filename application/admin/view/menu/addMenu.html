@@ -1,0 +1,121 @@
+{extend name="base/base" /}
+{block name="title"}添加菜单{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("menu/index")}'>菜单管理</a>
+        <a><cite>添加菜单</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <form class="layui-form" action="" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单类别</label>
+            <div class="layui-input-block level"  >
+                {foreach name="levels" item="vo" key="k"  }
+                <input type="radio"  name="level" value="{$vo.level}" title="{$vo.level} 级菜单" lay-filter="level" >
+                {/foreach}
+            </div>
+            <div class="layui-btn-group">
+                <button class="layui-btn-primary layui-btn-small" type="button" id="add_level">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">父级</label>
+            <div class="layui-input-block">
+                <select id="pid"  name="pid" lay-verify="required">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">菜单标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required  lay-verify="required" placeholder="节点标题 如：后台模板" autocomplete="off" class="layui-input">
+            </div>
+            <!--div class="layui-form-mid layui-word-aux">如：admin/index/index  后台模板</div>-->
+        </div>
+
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">菜单地址</label>
+            <div class="layui-input-block">
+                <input type="radio" name="url" value="0" title="无跳转" lay-filter="url">
+                <input type="radio" name="url" value="1" title="跳转" checked lay-filter="url">
+            </div>
+            <div class="layui-input-block s">
+                <select   name="url_module"  lay-filter="url_module" lay-verify="required" id="url_module" >
+                    <option class="url" value="">模块选择</option>
+                </select>
+                <select   name="url_controller" lay-filter="url_controller" lay-verify="required" id="url_controller">
+                    <option class="url" value="">控制器选择</option>
+                </select>
+                <select   name="url_action"  lay-verify="required" id="url_action" >
+                    <option class="url" value="">方法选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" required  lay-verify="required" placeholder="排序 （倒序）" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-mid layui-word-aux">正序</div>-->
+
+        <div class="layui-form-item layui-form-text layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="请输入描述内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="禁用" checked>
+                <input type="radio" name="status" value="1" title="启用" >
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="save" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+    <script src="__JS__/menu/addMenu.js"></script>
+    <script>
+        var addMenu = "{:url('menu/addMenu')}"
+                ,getParent = "{:url('menu/getParent')}"
+                ,Index = "{:url('menu/index')}"
+                ,getNode = "{:url('menu/getNodeList')}";
+    </script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

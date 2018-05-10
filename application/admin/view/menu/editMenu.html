@@ -1,0 +1,131 @@
+{extend name="base/base" /}
+{block name="title"}编辑菜单{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("menu/index")}'>菜单管理</a>
+        <a><cite>编辑菜单</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <form class="layui-form" action="" >
+        <input type="hidden" name="id" value="{$menu.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单类别</label>
+            <div class="layui-input-block level"  >
+                {foreach name="levels" item="vo" key="k"  }
+                <input type="radio"  name="level" value="{$vo.level}" {if condition="$vo.level eq $menu.level"}checked{/if} title="{$vo.level} 级菜单" lay-filter="level" >
+                {/foreach}
+            </div>
+            <div class="layui-btn-group">
+                <button class="layui-btn-primary layui-btn-small" type="button" id="add_level">
+                    <i class="layui-icon">&#xe654;</i>
+                </button>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">父级</label>
+            <div class="layui-input-block">
+                <select id="pid"  name="pid" lay-verify="required">
+                    {if condition="$menu.parent eq null"}
+                        <option value="0">已经是追高级别</option>
+                    {else /}
+                        {foreach name="menu.parent" item="vo" key="k"  }
+                        <option value="{$vo.id}" {if condition="$menu.pid eq $vo.id"}selected = "selected"{/if}>{$vo.title}</option>
+                        {/foreach}
+                    {/if}
+
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">菜单标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" required  lay-verify="required" value="{$menu.title}" placeholder="节点标题 如：后台模板" autocomplete="off" class="layui-input">
+            </div>
+            <!--div class="layui-form-mid layui-word-aux">如：admin/index/index  后台模板</div>-->
+        </div>
+
+        <div class="layui-form-item layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">菜单地址</label>
+            <div class="layui-input-block">
+                <input type="radio" name="url" value="0" title="无跳转" lay-filter="url" {if condition="0 eq $menu['urlm']" }checked{/if}>
+                <input type="radio" name="url" value="1" title="跳转"  lay-filter="url" {if condition="1 eq $menu['urlm']"}checked{/if}>
+            </div>
+            <div class="layui-input-block s" {eq name="menu['urlm']" value="0"}style="display: none;"{/eq}>
+                <select   name="url_module"  lay-filter="url_module" lay-verify="required" id="url_module" >
+                    <option class="url" value="">模块选择</option>
+                    {eq name="menu['urlm']" value="1"} <option  class="url" value="{$menu.url[0]['id']}" selected>{$menu.url[0]['name']}</option> {/eq}
+                </select>
+                <select   name="url_controller" lay-filter="url_controller" lay-verify="required" id="url_controller">
+                    <option class="url" value="">控制器选择</option>
+                    {eq name="menu['urlm']" value="1"} <option class="url" value="{$menu.url[1]['id']}" selected>{$menu.url[1]['name']}</option> {/eq}
+                </select>
+                <select   name="url_action" lay-verify="required" id="url_action" >
+                    <option class="url" value="">方法选择</option>
+                    {eq name="menu['urlm']" value="1"} <option class="url" value="{$menu.url[2]['id']}" selected>{$menu.url[2]['name']}</option> {/eq}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item  layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" required  lay-verify="required" value="{$menu.sort}" placeholder="排序 （倒序）" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-mid layui-word-aux">正序</div>-->
+
+        <div class="layui-form-item layui-form-text layui-col-lg3 layui-col-xs11 layui-col-sm4 layui-col-md4">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <textarea name="remark" placeholder="请输入描述内容" class="layui-textarea">{$menu.remark}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="0" title="禁用" {eq name="menu['status']" value="0"}checked{/eq}>
+                <input type="radio" name="status" value="1" title="启用" {eq name="menu['status']" value="1"}checked{/eq}>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button id="save" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+<script src="__JS__/menu/editMenu.js"></script>
+<script>
+    var editMenu = "{:url('menu/editMenu')}"
+            ,getParent = "{:url('menu/getParent')}"
+            ,Index = "{:url('menu/index')}"
+            ,getNode = "{:url('menu/getNodeList')}";
+</script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

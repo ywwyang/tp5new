@@ -1,0 +1,119 @@
+{extend name="base/base" /}
+{block name="title"}账号管理{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a><cite>账号管理</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md10">
+            <div class="grid-demo grid-demo-bg1">
+                <!-- 搜索 -->
+            </div>
+        </div>
+        <div class="layui-col-md2">
+            <div class="grid-demo" style="text-align: right;">
+                <a href='{:url("user/addUser")}' class="layui-btn layui-btn-small"><i class="layui-icon">&#xe608;</i>添加用户</a>
+            </div>
+        </div>
+    </div>
+    <form class="layui-form">
+        <table class="layui-table" lay-filter="demo">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>登陆次数</th>
+                <th>最后登录IP</th>
+                <th>最后登录时间</th>
+                <th>真实姓名</th>
+                <th>已分配角色</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $userList as $vo}
+            <tr>
+                <td> {$vo.id}</td>
+                <td> {$vo.uname}</td>
+                <td> {$vo.login_num}</td>
+                <td> {$vo.last_login_ip}</td>
+                <td> {$vo.last_login_time|date="Y-m-d H:i:s",###}</td>
+                <td> {$vo.real_name}</td>
+                <td>
+                    {foreach $role as $roles}
+                        {if condition="$roles['user_id'] eq $vo.id"}
+                           [ {$roles.name} ]
+                        {/if}
+                    {/foreach}
+                </td>
+                <td>
+                    {if condition="$vo.status eq 1"}
+                    <span value="0">启用</span><i></i>
+                    {else /}
+                    <span value="1">禁用</span><i></i>
+                    {/if}
+                </td>
+                <td>
+                    <a href='{:url("user/editUser")}?id={$vo.id}' class="layui-btn layui-btn-small">编辑</a>
+                    {if condition="$vo.uname neq $admin_name"}
+                        <a href='{:url("user/assignRole")}?id={$vo.id}' class="layui-btn layui-btn-small">分配角色</a>
+                        <button class="layui-btn layui-btn-warm a layui-btn-small" lay-event="disabled" id="{$vo.id}" value="{$vo.status}">
+                            {if condition="$vo.status eq 1"}
+                            <span >禁用</span><i></i>
+                            {else /}
+                            <span >启用</span><i></i>
+                            {/if}
+                        </button>
+                        <button class="layui-btn layui-btn-danger del layui-btn-small"  value="{$vo.id}">删除</button>
+                    {else}
+                        <a href='javascript:;' class="layui-btn layui-btn-small layui-btn-disabled">分配角色</a>
+                        <a href='javascript:;' class="layui-btn  layui-btn-small layui-btn-disabled">禁用</a>
+                        <a href='javascript:;' class="layui-btn  layui-btn-small layui-btn-disabled">删除</a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+        <div id="page" class="layui-box layui-laypage layui-laypage-default page-width">
+            {$page}
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+<script src="__JS__/user/index.js"></script>
+<script>
+    var setStatus =  "{:url('user/setStatus')}";
+    var del =  "{:url('user/delUser')}";
+</script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

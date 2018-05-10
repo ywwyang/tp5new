@@ -1,0 +1,61 @@
+{extend name="base/base" /}
+{block name="title"}添加角色{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a href='{:url("role/index")}'>角色管理</a>
+        <a><cite>添加角色</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+	<form class="layui-form">
+		<div class="layui-form-item layui-col-lg4 layui-col-xs11 layui-col-sm6 layui-col-md5">
+			<label class="layui-form-label">父级名称</label>
+			<div class="layui-input-inline">
+				<select name="pid">
+					<option value="0">最高级</option>
+					{notempty name="$roleData"}
+						{foreach $roleData as $key=>$vo }
+							<option value="{$vo.id}">{$vo.name}</option>
+						{/foreach}
+					{/notempty}
+				</select>
+			</div>
+			<div class="layui-form-mid layui-word-aux">可不选</div>
+		</div>
+
+		<div class="layui-form-item layui-col-lg4 layui-col-xs11 layui-col-sm6 layui-col-md5">
+			<label class="layui-form-label">角色名称</label>
+			<div class="layui-input-block">
+				<input type="text" name="name" required  lay-verify="required" placeholder="角色名称" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text layui-col-lg4 layui-col-xs11 layui-col-sm6 layui-col-md5">
+			<label class="layui-form-label">角色描述</label>
+			<div class="layui-input-block">
+				<textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item layui-col-lg4 layui-col-xs11 layui-col-sm6 layui-col-md5">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="启用" checked>
+                <input type="radio" name="status" value="0" title="禁用" >
+            </div>
+        </div>
+		<div class="layui-form-item ">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				<!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+			</div>
+		</div>
+	</form>
+{/block}
+{block name="js_footer"}
+	<script src="__JS__/role/addRole.js"></script>
+	<script>
+		var addRole = '{:url("Role/addRole")}'
+				, Index = '{:url("Role/index")}';
+	</script>
+{/block}

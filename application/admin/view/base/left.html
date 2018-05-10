@@ -1,0 +1,19 @@
+<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+<ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+    {foreach  name="left_menu" item="vo" key="key"}
+    <li class="layui-nav-item">
+        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> {$vo.title} </span></a>
+        {if condition='0 gt :count($vo.sub_menu)'}
+        <dl class="layui-nav-child">
+            {foreach  name="vo.sub_menu" item="v" key="k"}
+            <dd>
+                <a href="javascript:;" data-url="{:url($v.url)}" data-icon="&#xe628;" data-title=" {$v.title} " kit-target data-id='{$k}'>
+                     <i class="layui-icon">&#xe628;</i> <span> {$v.title} </span></a>
+            </dd>
+            {/foreach}
+        </dl>
+        {/if}
+    </li>
+    {/foreach}
+</ul>
+

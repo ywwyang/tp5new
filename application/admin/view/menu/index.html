@@ -1,0 +1,68 @@
+    {extend name="base/base" /}
+{block name="title"}菜单管理{/block}
+{block name="css_head"}
+    <link rel="stylesheet" href="__CSS__/demo.css">
+    <link rel="stylesheet" href="__CSS__/zTreeStyle.css">
+    <style type="text/css">
+        .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+        .layui-breadcrumb a { text-decoration:none; }
+        .layui-breadcrumb a:hover {background-color:#fff;text-decoration:none;}
+        .grid-demo a { text-decoration:none; }
+        .grid-demo a:hover { background-color:#009688;text-decoration:none; }
+    </style>
+{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a><cite>菜单管理</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md2">
+            <div class="grid-demo">
+                <a href='{:url("menu/addMenu")}' class="layui-btn layui-btn-small"><i class="layui-icon">&#xe608;</i>添加菜单</a>
+            </div>
+        </div>
+    </div>
+    <form class="layui-form">
+        <div class="zTreeDemoBackground left">
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+    </form>
+{/block}
+{block name="js_footer"}
+   <!-- <script src="__JS__/jquery.ztree.all.min.js"></script>-->
+    <script type="text/javascript" src="__JS__/jquery.ztree.core.js"></script>
+  <!--  <script type="text/javascript" src="__JS__/jquery.ztree.excheck.js"></script>-->
+    <script type="text/javascript" src="__JS__/jquery.ztree.exedit.js"></script>
+    <script>
+        var getMenuList = "{:url('menu/getMenuList')}";
+        var setStatus =  "{:url('menu/setStatus')}";
+        var del =  "{:url('menu/delMenu')}";
+        var editMenu = '{:url("menu/editMenu")}';
+    </script>
+    <script src="__JS__/menu/index.js"></script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

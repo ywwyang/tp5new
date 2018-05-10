@@ -1,0 +1,64 @@
+{extend name="base/base" /}
+{block name="title"}节点管理{/block}
+{block name="css_head"}
+<link rel="stylesheet" href="__CSS__/demo.css">
+<link rel="stylesheet" href="__CSS__/zTreeStyle.css">
+<style type="text/css">
+    .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+    .layui-breadcrumb a { text-decoration:none; }
+    .layui-breadcrumb a:hover {background-color:#fff;text-decoration:none;}
+    .grid-demo a { text-decoration:none; }
+    .grid-demo a:hover { background-color:#009688;text-decoration:none; }
+</style>
+{/block}
+{block name="breadcrumb"}
+    <span class="layui-breadcrumb">
+        <a><cite>首页</cite></a>
+        <a><cite>节点管理</cite></a>
+    </span>
+    <hr >
+{/block}
+{block name="content"}
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md2">
+            <div class="grid-demo">
+                <a href='{:url("node/addNode")}' class="layui-btn layui-btn-small"><i class="layui-icon">&#xe608;</i>添加节点</a>
+            </div>
+        </div>
+    </div>
+    <div class="zTreeDemoBackground left" style="width: 400px">
+        <ul id="nodeTree" class="ztree"></ul>
+    </div>
+{/block}
+{block name="js_footer"}
+    <script type="text/javascript" src="__JS__/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.ztree.exedit.js"></script>
+    <script src="__JS__/node/index.js"></script>
+    <script>
+        var getNodeList = "{:url('node/index')}"
+            ,editNode = "{:url('node/editNode')}"
+            ,setStatus =  "{:url('node/setStatus')}"
+            ,del =  "{:url('node/delNode')}";
+    </script>
+{/block}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
